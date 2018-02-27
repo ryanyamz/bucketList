@@ -1,0 +1,12 @@
+<fieldset>
+<legend>Bucket List</legend>
+
+    <form (submit)='onLogin($event, loginForm)' #loginForm='ngForm'>
+      <div>
+        <label for="">Name</label>
+        <input type="text" name='name' #name='ngModel' [(ngModel)]='user.name' minlength="3">
+      </div>
+      <button *ngIf='loginForm.valid'>Login</button>
+    </form>
+
+</fieldset>

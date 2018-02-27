@@ -1,0 +1,60 @@
+<h3>Welcome, {{user.name}}</h3>
+
+<header>
+  <nav>
+    <button (click)='onLogout()' routerLink='/'>Logout</button>
+  </nav>
+</header>
+<form (submit)='onSubmit($event, listForm)' #listForm='ngForm'>
+  <div>
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]='bucket_list.title' required #title='ngModel' minlength="5">
+    <div *ngIf='title.touched && title.errors'>
+      <div *ngIf='title.errors.required'>
+        You must enter a title
+      </div>
+      <div *ngIf='title.errors.minlength'>
+        Title must be at least {{ title.errors.minlength.requiredLength }} characters
+      </div>
+    </div>
+ </div>
+
+ <div>
+   <label for="description">Description</label>
+  <input type="text" name="description" [(ngModel)]='bucket_list.description' required #desc='ngModel' minlength="10">
+  <div *ngIf='desc.touched && desc.errors'>
+    You must enter a description with 10 characters
+  </div>
+ </div>
+
+  <div>
+    <label for="user">User</label>
+    <select name="user" [(ngModel)]='bucket_list.users'>
+      <option disabled selected value> -- select an option -- </option>
+      <option [value]="user._id" *ngFor="let user of users">{{user.name}}</option>
+    </select>
+  </div>
+  <button *ngIf='listForm.valid'>Add to List</button>
+</form>
+
+<h3>Before I die I want to...</h3>
+
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr *ngFor='let list of user.bucket_lists'>
+      <input type="checkbox">
+      <td>{{list.title}}</td>
+      <td>{{list.description}}</td>
+      <td>{{list.createdAt | date: 'mediumDate'}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>List of Other Users:</h2>
+<ul *ngFor='let user of users'>
+  <li><a [routerLink]="['/user', user._id]">{{user.name}}</a></li>
+</ul>
