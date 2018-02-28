@@ -2,6 +2,7 @@ const express = require('express');
 const parser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const port = process.env.PORT || 8000;
 
@@ -26,6 +27,7 @@ const sessionConfig = {
   }
 };
 app.use(session(sessionConfig));
+app.use(cookieParser('adlfja;lfjaf'));
 
 require('./server/config/database');
 

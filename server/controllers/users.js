@@ -18,7 +18,7 @@ module.exports = {
     console.log('grabbing 1 user');
     User.findById(request.params.id)
       .then(user => response.json(user))
-      .catch(console.log);
+      .catch(() => console.log('error in users.js show'));
   },
 
   login(request, response) {

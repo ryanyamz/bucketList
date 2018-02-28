@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
+import { CookieModule } from 'ngx-cookie';
 // import { NotFoundComponent } from './not-found/not-found.component';
 
 import { UserService } from './user.service';
@@ -26,6 +27,7 @@ import { UsersShowComponent } from './users/users-show/users-show.component';
     UsersShowComponent
   ],
   imports: [
+    CookieModule.forRoot(),
     BrowserModule,
     RouterModule,
     FormsModule,

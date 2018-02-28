@@ -19,6 +19,7 @@ export class BucketListComponent implements OnInit {
   newbucket_list = new EventEmitter<Bucket_List>();
   users: Array<User> = [];
   user: User;
+  authUserID: string;
 
 
 
@@ -26,15 +27,20 @@ export class BucketListComponent implements OnInit {
     private userService: UserService,
     private bucket_listService: BucketListService,
     private router: Router,
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.userService.getUsers()
-      .then(users => this.users = users)
-      .catch(() => {});
+    this.authUserID = this.userService.getUserID();
+    // this.userService.login(this.user)
+    //   .subscribe(user => {
+    //     this.user = user
+    //   });
+    // this.userService.getUsers()
+    //   .then(users => this.users = users)
+    //   .catch(() => {});
 
-    this.user = this.route.snapshot.data.user;
+    // this.user = this.route.snapshot.data.user;
 
     // this.bucket_listService.getLists()
     //   .subscribe(bucket_lists => {

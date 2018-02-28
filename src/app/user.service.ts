@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { CookieService } from 'ngx-cookie';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -11,12 +12,13 @@ export class UserService {
   private base = '/api/user';
 
   constructor(
-    private http: Http
+    private http: Http,
+    private cookieService: CookieService
   ) {}
 
   login(user: User): Observable<User> {
-    console.log('in UserService login', user);
-    return this.http.post(`${this.base}/login`, user)
+    console.log('in UserService login');
+    return this.http.get(`${this.base}/login`)
       .map(response => response.json());
   }
 
@@ -35,6 +37,11 @@ export class UserService {
     return this.http.get(this.base)
       .map(response => response.json())
       .toPromise();
+  }
+
+  getUserID() {
+    console.log('userID')
+    return this.cookieService.get('userID');
   }
 
 }
