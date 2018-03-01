@@ -1,8 +1,8 @@
-<h1>hello {{user.name}}</h1>
+<h1>hello {{user?.name}}</h1>
 
 
-<ul *ngFor='let list of user.bucket_lists'>
-  <li>{{list}}</li>
+<ul *ngFor='let list of bucket_lists'>
+  <li>{{list.title}}</li>
 </ul>
 
 

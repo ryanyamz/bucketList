@@ -9,7 +9,6 @@ import { CookieModule } from 'ngx-cookie';
 
 import { UserService } from './user.service';
 import { BucketListService } from './bucket_list.service';
-import { UserResolve } from './resolvers';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
@@ -18,13 +17,14 @@ import { UsersLoginComponent } from './users/users-login/users-login.component';
 import { UsersShowComponent } from './users/users-show/users-show.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
     BucketListComponent,
     UsersLoginComponent,
-    UsersShowComponent
+    UsersShowComponent,
   ],
   imports: [
     CookieModule.forRoot(),
@@ -36,7 +36,6 @@ import { UsersShowComponent } from './users/users-show/users-show.component';
   ],
   providers: [
     UserService,
-    UserResolve,
     BucketListService,
   ],
   bootstrap: [AppComponent]

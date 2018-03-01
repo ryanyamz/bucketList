@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserResolve } from './resolvers';
 import { UsersLoginComponent } from './users/users-login/users-login.component';
 import { UsersShowComponent } from './users/users-show/users-show.component';
 import { UsersComponent } from './users/users.component';
@@ -18,9 +17,6 @@ const routes: Routes = [
   {
     path: 'user/:id',
     component: UsersShowComponent,
-    resolve: {
-      user: UserResolve
-    }
   },
   {
     path: 'home',

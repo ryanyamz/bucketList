@@ -14,49 +14,41 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./bucket-list.component.css']
 })
 export class BucketListComponent implements OnInit {
-  // bucket_lists: Bucket_List[] = [];
-  bucket_list = new Bucket_List();
-  newbucket_list = new EventEmitter<Bucket_List>();
+  lists: Array<Bucket_List> = [];
   users: Array<User> = [];
+  bucket_list = new Bucket_List();
   user: User;
-  authUserID: string;
 
 
 
   constructor(
     private userService: UserService,
-    private bucket_listService: BucketListService,
+    private bucketListService: BucketListService,
     private router: Router,
-    // private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.authUserID = this.userService.getUserID();
-    // this.userService.login(this.user)
-    //   .subscribe(user => {
-    //     this.user = user
-    //   });
-    // this.userService.getUsers()
-    //   .then(users => this.users = users)
-    //   .catch(() => {});
+    this.userService.getUser(this.userService.getUserID())
+      .subscribe(user => this.user = user);
 
-    // this.user = this.route.snapshot.data.user;
+    this.userService.getUsers()
+      .then(users => {
+        this.users = users;
+        // this.user = this.users.find(user => user._id === this.userService.getUserID());
+      })
+      .catch(() => {});
 
-    // this.bucket_listService.getLists()
-    //   .subscribe(bucket_lists => {
-    //     this.bucket_lists = bucket_lists
-    //   });
+    this.bucketListService.getLists()
+      .subscribe(list => this.lists = list);
 
   }
 
-  onSubmit(event: Event, form: NgForm) {
+  onSubmit(event: Event, form: NgForm): void {
     event.preventDefault();
     console.log('in OnSubmit in bucketList component', form, this.bucket_list);
-    this.bucket_listService.createList(this.bucket_list)
-      .subscribe(
-        bucket_list => {
-          this.newbucket_list.emit(bucket_list);
-          // this.bucket_lists.push(this.bucket_list);
+    this.lists.push(this.bucket_list);
+    this.bucketListService.createList(this.bucket_list)
+    .subscribe(bucket_list => {
           this.bucket_list = new Bucket_List();
           form.reset();
         },

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../user';
 import { UserService } from '../../user.service';
-// import { BucketListService } from '../../bucket_list.service';
-// import { Bucket_List } from '../../bucket_list';
+import { BucketListService } from '../../bucket_list.service';
+import { Bucket_List } from '../../bucket_list';
+
+import 'rxjs/add/operator/switchMap';
 
 
 @Component({
@@ -13,24 +15,23 @@ import { UserService } from '../../user.service';
 })
 export class UsersShowComponent implements OnInit {
   user: User;
-  // bucket_lists: Bucket_List[];
+  bucket_lists: Bucket_List[];
 
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    // private bucketListService: BucketListService,
+    private bucketListService: BucketListService,
   ) { }
 
   ngOnInit(): void {
-    // this.showUser();
+    this.route.paramMap.switchMap(params =>this.userService.getUser(params.get('id')))
+      .subscribe(user => this.user = user);
 
-    this.user = this.route.snapshot.data.user;
-    // this.showUser();
-    // this.bucketListService.getLists()
-    //   .subscribe(bucket_lists => {
-    //     this.bucket_lists = bucket_lists
-    //   });
+    this.route.paramMap.switchMap(params => this.bucketListService.getUserList(params.get('id')))
+      .subscribe(bucket_list => this.bucket_lists = bucket_list)
+
+
   }
 
 

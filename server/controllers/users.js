@@ -16,7 +16,7 @@ module.exports = {
 
   show(request, response) {
     console.log('grabbing 1 user');
-    User.findById(request.params.id)
+    User.findById(request.params.id) //make sure this (id) matches how you put it in the route
       .then(user => response.json(user))
       .catch(() => console.log('error in users.js show'));
   },
@@ -29,14 +29,9 @@ module.exports = {
             .then(user => {
               console.log('new user saved');
               completeLogin(request, response, user);
-              // request.session.user = user.toObject();
-              // response.json(user);
             })
         }
         completeLogin(request, response, user);
-        // request.session.user = user.toObject();
-        // // request.session.user.name = user.name;
-        // response.json(user);
         console.log('logged in user server side');
       })
       .catch(error => {
@@ -48,7 +43,6 @@ module.exports = {
     console.log('logging out of server side');
     request.session.destroy();
     response.clearCookie('userID');
-    response.clearCookie('expiration');
 
     response.json(true);
   }

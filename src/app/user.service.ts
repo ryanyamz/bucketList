@@ -16,10 +16,11 @@ export class UserService {
     private cookieService: CookieService
   ) {}
 
-  login(user: User): Observable<User> {
+  login(user: User): Promise<User> {
     console.log('in UserService login');
-    return this.http.get(`${this.base}/login`)
-      .map(response => response.json());
+    return this.http.post(`${this.base}/login`, user)
+      .map(response => response.json())
+      .toPromise();
   }
 
   logout(): Promise<User> {
@@ -39,9 +40,16 @@ export class UserService {
       .toPromise();
   }
 
-  getUserID() {
-    console.log('userID')
+  getUserID(): string {
+    console.log('userID in user.service')
     return this.cookieService.get('userID');
+  }
+
+  isAuthed(): boolean {
+    const userID = this.getUserID();
+    const session = this.cookieService.get('session');
+
+    return Boolean(session && userID);
   }
 
 }

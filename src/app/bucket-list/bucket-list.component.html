@@ -1,4 +1,4 @@
-<h3>Welcome, {{user.name}}</h3>
+<h3>Welcome, {{user?.name}}</h3>
 
 <header>
   <nav>
@@ -38,23 +38,22 @@
 </form>
 
 <h3>Before I die I want to...</h3>
-
-<!-- <table>
+<table>
   <thead>
     <th>Title</th>
     <th>Description</th>
   </thead>
   <tbody>
-    <tr *ngFor='let list of user.bucket_lists'>
+    <tr *ngFor='let list of lists'>
       <input type="checkbox">
-      <td>{{list.title}}</td>
-      <td>{{list.description}}</td>
-      <td>{{list.createdAt | date: 'mediumDate'}}</td>
+      <td>{{list?.title}}</td>
+      <td>{{list?.description}}</td>
+      <td>{{list?.createdAt | date: 'mediumDate'}}</td>
     </tr>
   </tbody>
 </table>
 
-<h2>List of Other Users:</h2>
+  <h2>List of Other Users:</h2>
 <ul *ngFor='let user of users'>
   <li><a [routerLink]="['/user', user._id]">{{user.name}}</a></li>
-</ul> -->
+</ul>

@@ -13,6 +13,7 @@ import { User } from '../../user';
 })
 export class UsersLoginComponent implements OnInit {
   user: User = new User();
+  loginErrors: string[] = [];
 
   constructor(
     private userService: UserService,
@@ -25,15 +26,12 @@ export class UsersLoginComponent implements OnInit {
   onLogin(event: Event, form: NgForm): void {
     event.preventDefault();
     this.userService.login(this.user)
-      .subscribe(
-        user => {
-          console.log('in LOGIN onSubmit');
-          this.router.navigate(['/home']);
-        },
-        errorResponse => {
-          console.log('in LOGIN onLogin errors', errorResponse);
-        },
-      );
+      .then(() => this.router.navigate(['/home']))
+      .catch(response => console.log('error login', response));
+  }
+
+  private handleErrors(errors: string[] | Error): void {
+    this.loginErrors = Array.isArray(errors) ? errors: [errors.message];
   }
 
 }

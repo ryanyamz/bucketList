@@ -18,10 +18,18 @@ module.exports = {
 
             user.save()
               .then(() => {
+                console.log('inside create bucket_lists.js')
                 response.json(bucket_list);
               });
           })
       })
       .catch(error => console.log('error in bucket_list.js create',error))
+  },
+
+  getUserList(request, response) {
+    Bucket_List.find({ user: request.params.user_id })
+      .populate('user')
+      .then(bucket_list => response.json(bucket_list))
+      .catch(console.log);
   }
 }

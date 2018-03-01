@@ -27,5 +27,10 @@ export class BucketListService {
     .map(response => response.json());
   }
 
+  getUserList(id: string): Observable<Bucket_List[]> {
+    return this.http.get(`${this.base}/${id}`)
+      .map(response => response.json());
+  }
+
 
 }
