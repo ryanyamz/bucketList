@@ -18,7 +18,11 @@ const bucket_listSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
-  }
+  },
+  tagged_user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 }, {
   timestamps: true
 });

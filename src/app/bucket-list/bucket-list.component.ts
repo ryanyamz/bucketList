@@ -18,6 +18,7 @@ export class BucketListComponent implements OnInit {
   users: Array<User> = [];
   bucket_list = new Bucket_List();
   user: User;
+  // bucket_lists: Bucket_List[];
 
 
 
@@ -38,24 +39,28 @@ export class BucketListComponent implements OnInit {
       })
       .catch(() => {});
 
+    // this.bucketListService.getUserList(this.userService.getUserID())
+    //   .subscribe(lists => this.lists = lists);
+
     this.bucketListService.getLists()
-      .subscribe(list => this.lists = list);
+      .subscribe(lists => this.lists = lists)
 
   }
 
   onSubmit(event: Event, form: NgForm): void {
     event.preventDefault();
-    console.log('in OnSubmit in bucketList component', form, this.bucket_list);
+    console.log('in OnSubmit in bucketList component', form.value, this.bucket_list);
     this.lists.push(this.bucket_list);
     this.bucketListService.createList(this.bucket_list)
     .subscribe(bucket_list => {
-          this.bucket_list = new Bucket_List();
-          form.reset();
-        },
-        errorResponse => {
-          console.log('error onSubmit bucket-list component', errorResponse);
-        }
-      );
+      console.log('clearing form')
+      this.bucket_list = new Bucket_List();
+      form.reset();
+      },
+      errorResponse => {
+        console.log('error onSubmit bucket-list component', errorResponse);
+      }
+    );
 
   }
 
