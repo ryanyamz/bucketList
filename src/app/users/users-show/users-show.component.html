@@ -1,8 +1,30 @@
-<h1>hello {{user?.name}}</h1>
+<nav>
+  <a routerLink='/home'>Home</a>
+  <a routerLink='/'>Logout</a>
+</nav>
 
+<h1>{{user?.name}}'s Bucket List</h1>
 
+<h3>Done:</h3>
 <ul *ngFor='let list of bucket_lists'>
-  <li>{{list.title}}</li>
+  <li *ngIf='list.checked === true'>
+  <input type="checkbox" [(ngModel)]='list.checked' [disabled]="true">
+  <span>{{list.user.name}}</span> |
+  <span>{{list.title}}</span>
+  <span>{{list.description}}</span>
+  <span>{{list.createdAt | date: 'mediumDate'}}</span>
+  </li>
+</ul>
+
+<h3>Pending:</h3>
+<ul *ngFor='let list of bucket_lists'>
+  <li *ngIf='list.checked === false'>
+    <input type="checkbox" [(ngModel)]='list.checked' [disabled]="true">
+    <span>{{list.user.name}}</span> |
+    <span>{{list.title}}</span>
+    <span>{{list.description}}</span>
+    <span>{{list.createdAt | date: 'mediumDate'}}</span>
+  </li>
 </ul>
 
 

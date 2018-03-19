@@ -18,7 +18,6 @@ export class BucketListComponent implements OnInit {
   users: Array<User> = [];
   bucket_list = new Bucket_List();
   user: User;
-  // bucket_lists: Bucket_List[];
 
 
 
@@ -34,34 +33,46 @@ export class BucketListComponent implements OnInit {
 
     this.userService.getUsers()
       .then(users => {
-        this.users = users;
+          this.users = users;
         // this.user = this.users.find(user => user._id === this.userService.getUserID());
       })
       .catch(() => {});
 
-    // this.bucketListService.getUserList(this.userService.getUserID())
-    //   .subscribe(lists => this.lists = lists);
+    this.bucketListService.getUserList(this.userService.getUserID())
+      .subscribe(lists => this.lists = lists);
 
-    this.bucketListService.getLists()
-      .subscribe(lists => this.lists = lists)
+    // this.bucketListService.getLists()
+    //   .subscribe(lists => this.lists = lists)
 
   }
 
   onSubmit(event: Event, form: NgForm): void {
     event.preventDefault();
     console.log('in OnSubmit in bucketList component', form.value, this.bucket_list);
-    this.lists.push(this.bucket_list);
-    this.bucketListService.createList(this.bucket_list)
-    .subscribe(bucket_list => {
-      console.log('clearing form')
-      this.bucket_list = new Bucket_List();
-      form.reset();
-      },
-      errorResponse => {
-        console.log('error onSubmit bucket-list component', errorResponse);
-      }
-    );
+    this.bucketListService.createList({...this.bucket_list, user: this.user})
+      .subscribe(bucket_list => {
+        console.log('clearing form')
+        console.log(bucket_list)
+        this.lists.push(bucket_list);
+        this.bucket_list = new Bucket_List();
+        form.reset();
+        },
+        errorResponse => {
+          console.log('error onSubmit bucket-list component', errorResponse);
+        }
+      );
 
+  }
+
+  onCheck(id): void {
+    console.log('checking checkbox');
+    this.bucketListService.updateList(id, this.bucket_list)
+      .subscribe(bucket_list => {
+        console.log('completed onCheck', bucket_list);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   onLogout(): void {

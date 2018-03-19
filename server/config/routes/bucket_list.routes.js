@@ -4,4 +4,5 @@ const router = require('express').Router();
 module.exports = router
   .get('/', bucket_listController.index)
   .post('/', bucket_listController.create)
-  .get('/:user_id', bucket_listController.getUserList);
+  .get('/:user_id', bucket_listController.getUserList)
+  .put('/:id', bucket_listController.updateList);

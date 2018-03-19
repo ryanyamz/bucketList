@@ -5,4 +5,6 @@ export class Bucket_List {
   title: string;
   description: string;
   user: User;
+  tagged_user: User;
+  checked: boolean;
 }

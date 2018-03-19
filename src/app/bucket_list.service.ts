@@ -14,8 +14,6 @@ export class BucketListService {
   ) {}
 
 
-
-
   createList(bucket_list: Bucket_List): Observable<Bucket_List> {
     console.log('createList in bucket list service', bucket_list);
     return this.http.post(this.base, bucket_list)
@@ -32,5 +30,9 @@ export class BucketListService {
       .map(response => response.json());
   }
 
+  updateList(id, bucket_list: Bucket_List): Observable<Bucket_List> {
+    return this.http.put(`${this.base}/${id}`, bucket_list)
+      .map(response => response.json());
+  }
 
 }

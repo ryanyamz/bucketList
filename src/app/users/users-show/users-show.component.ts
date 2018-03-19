@@ -29,17 +29,12 @@ export class UsersShowComponent implements OnInit {
       .subscribe(user => this.user = user);
 
     this.route.paramMap.switchMap(params => this.bucketListService.getUserList(params.get('id')))
-      .subscribe(bucket_list => this.bucket_lists = bucket_list)
-
+      .subscribe(bucket_list => {
+        console.log(bucket_list);
+        this.bucket_lists = bucket_list
+      })
 
   }
 
-
-  // showUser() {
-  //   console.log('in showUser', this.user);
-  //   this.userService.getUser(this.user._id)
-  //     .then(user => this.user = user)
-  //     .catch(() => {});
-  // }
 
 }

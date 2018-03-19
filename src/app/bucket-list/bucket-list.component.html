@@ -38,18 +38,17 @@
 </form>
 
 <h3>Before I die I want to...</h3>
-<table>
-  <tbody>
-    <tr *ngFor='let list of lists'>
-      <input type="checkbox">
-      <td>{{list?.user.name}}</td>
-      <td>{{list?.title}}</td>
-      <td>{{list?.description}}</td>
-      <td>{{list?.tagged_user.name}}</td>
-      <td>{{list?.createdAt | date: 'mediumDate'}}</td>
-    </tr>
-  </tbody>
-</table>
+    <ul>
+      <li *ngFor='let list of lists'>
+        <input type="checkbox" name='checked' [(ngModel)]='list.checked' (click)='onCheck(list._id)'>
+        {{list.checked}}
+        <span>{{list?.user?.name}}</span>
+        <span>{{list?.title}}</span>
+        <span>{{list?.description}}</span>
+        <span>{{list?.createdAt | date: 'mediumDate'}}</span>
+      </li>
+    </ul>
+
 
   <h2>List of Other Users:</h2>
 <ul *ngFor='let user of users'>
